@@ -1,0 +1,218 @@
+{
+  "prospects": [
+    {
+      "id": "p0000001-0000-4000-a000-000000000001",
+      "campaign_id": "c1a2b3c4-0001-4000-a000-000000000001",
+      "first_name": "Sara",
+      "last_name": "Al-Mansouri",
+      "email": "sara.almansouri@growthsaas.ae",
+      "title": "VP of Sales",
+      "company": "GrowthSaaS",
+      "company_size": "51-200",
+      "country": "UAE",
+      "linkedin_url": "https://linkedin.com/in/sara-al-mansouri",
+      "recent_news": "GrowthSaaS launched an AI-powered CRM add-on in March 2026 and closed a $4M seed round.",
+      "job_postings": ["Senior SDR", "Sales Ops Manager", "Account Executive — MENA"],
+      "pain_points": [
+        "Scaling outbound without increasing SDR headcount",
+        "SDR ramp time averaging 4 months",
+        "Manual prospect research consuming 60% of rep time"
+      ],
+      "personalisation_hook": "Saw that GrowthSaaS is hiring a Sales Ops Manager — usually a sign the team is hitting process limits at scale.",
+      "enriched_at": "2026-05-20T07:13:10Z"
+    },
+    {
+      "id": "p0000001-0000-4000-a000-000000000002",
+      "campaign_id": "c1a2b3c4-0001-4000-a000-000000000001",
+      "first_name": "James",
+      "last_name": "Park",
+      "email": "james.park@loopify.io",
+      "title": "Chief Revenue Officer",
+      "company": "Loopify",
+      "company_size": "11-50",
+      "country": "UAE",
+      "linkedin_url": "https://linkedin.com/in/james-park-cro",
+      "recent_news": "Loopify expanded into the Saudi Arabian market in April 2026 after strong UAE growth.",
+      "job_postings": ["Sales Development Representative", "Regional Sales Manager — KSA"],
+      "pain_points": [
+        "Building a repeatable outbound process from scratch in a new market",
+        "No established brand recognition in Saudi Arabia",
+        "Lack of localised prospect data for KSA"
+      ],
+      "personalisation_hook": "Noticed Loopify just expanded into Saudi Arabia — new markets always make outbound 10x harder without the right data.",
+      "enriched_at": "2026-05-20T07:13:22Z"
+    },
+    {
+      "id": "p0000001-0000-4000-a000-000000000003",
+      "campaign_id": "c1a2b3c4-0001-4000-a000-000000000001",
+      "first_name": "Fatima",
+      "last_name": "Al-Rashid",
+      "email": "fatima@nexuscrm.ae",
+      "title": "Head of Sales",
+      "company": "NexusCRM",
+      "company_size": "11-50",
+      "country": "UAE",
+      "linkedin_url": "https://linkedin.com/in/fatima-alrashid",
+      "recent_news": "NexusCRM was featured in Forbes Middle East's Top 50 Startups list in February 2026.",
+      "job_postings": ["Business Development Manager"],
+      "pain_points": [
+        "Small team competing against enterprise CRM vendors",
+        "Generating qualified enterprise leads with limited marketing budget",
+        "Long sales cycles (6-9 months) draining pipeline"
+      ],
+      "personalisation_hook": "Congrats on the Forbes Middle East feature — that kind of visibility usually brings inbound noise but not always the right outbound pipeline.",
+      "enriched_at": "2026-05-20T07:13:35Z"
+    },
+    {
+      "id": "p0000001-0000-4000-a000-000000000004",
+      "campaign_id": "c1a2b3c4-0001-4000-a000-000000000001",
+      "first_name": "Omar",
+      "last_name": "Hassan",
+      "email": "omar.hassan@stackhive.io",
+      "title": "Director of Sales",
+      "company": "StackHive",
+      "company_size": "51-200",
+      "country": "UAE",
+      "linkedin_url": "https://linkedin.com/in/omar-hassan-sales",
+      "recent_news": "StackHive raised a Series A of $12M in January 2026, led by Gulf Capital.",
+      "job_postings": ["Enterprise Account Executive", "SDR Team Lead", "Sales Enablement Manager"],
+      "pain_points": [
+        "Rapidly scaling a sales team post Series A",
+        "Building enterprise sales motion for the first time",
+        "Inconsistent outreach quality across the SDR team"
+      ],
+      "personalisation_hook": "Saw StackHive closed a $12M Series A — scaling an enterprise sales team that fast is exciting but the outreach quality usually drops before it gets better.",
+      "enriched_at": "2026-05-20T07:13:48Z"
+    },
+    {
+      "id": "p0000001-0000-4000-a000-000000000005",
+      "campaign_id": "c1a2b3c4-0001-4000-a000-000000000001",
+      "first_name": "Layla",
+      "last_name": "Nasser",
+      "email": "l.nasser@brightdesk.ae",
+      "title": "VP Sales & Partnerships",
+      "company": "BrightDesk",
+      "company_size": "11-50",
+      "country": "UAE",
+      "linkedin_url": "https://linkedin.com/in/layla-nasser",
+      "recent_news": null,
+      "job_postings": ["Channel Partner Manager"],
+      "pain_points": [
+        "Growing partner channel without a dedicated team",
+        "Identifying the right reseller partners in the region"
+      ],
+      "personalisation_hook": "Noticed BrightDesk is hiring a Channel Partner Manager — building a partner channel from scratch is one of the trickiest outbound challenges out there.",
+      "enriched_at": "2026-05-20T07:14:00Z"
+    },
+    {
+      "id": "p0000001-0000-4000-a000-000000000006",
+      "campaign_id": "c1a2b3c4-0001-4000-a000-000000000001",
+      "first_name": "Khalid",
+      "last_name": "Bin Saud",
+      "email": "khalid@waverpay.io",
+      "title": "Chief Sales Officer",
+      "company": "WaverPay",
+      "company_size": "201-500",
+      "country": "UAE",
+      "linkedin_url": "https://linkedin.com/in/khalid-binsaud",
+      "recent_news": "WaverPay received a UAE Central Bank digital payments license in March 2026.",
+      "job_postings": ["Regional Sales Director — GCC", "Enterprise Sales Manager"],
+      "pain_points": [
+        "Educating enterprise prospects on a new payment category",
+        "Long compliance-related sales cycles in banking sector",
+        "Breaking into large enterprise accounts in GCC"
+      ],
+      "personalisation_hook": "Congrats on the Central Bank license — that's a huge milestone. Selling a new payment product into enterprise banks is a completely different outbound game.",
+      "enriched_at": "2026-05-20T07:14:12Z"
+    },
+    {
+      "id": "p0000001-0000-4000-a000-000000000007",
+      "campaign_id": "c1a2b3c4-0001-4000-a000-000000000001",
+      "first_name": "Rania",
+      "last_name": "Aziz",
+      "email": "rania.aziz@proptech-me.com",
+      "title": "Sales Manager",
+      "company": "PropTech ME",
+      "company_size": "11-50",
+      "country": "UAE",
+      "linkedin_url": null,
+      "recent_news": "PropTech ME launched a new AI property valuation tool in Q1 2026.",
+      "job_postings": ["Real Estate Tech Sales Specialist"],
+      "pain_points": [
+        "Convincing traditional real estate agencies to adopt new tech",
+        "High churn in the first 90 days post-onboarding",
+        "Small brand recognition outside Dubai"
+      ],
+      "personalisation_hook": "Saw that PropTech ME launched an AI valuation tool — getting traditional real estate agencies to actually adopt it is where most proptech sales teams get stuck.",
+      "enriched_at": "2026-05-20T07:14:20Z"
+    },
+    {
+      "id": "p0000001-0000-4000-a000-000000000008",
+      "campaign_id": "c1a2b3c4-0001-4000-a000-000000000001",
+      "first_name": "Tariq",
+      "last_name": "Al-Fahim",
+      "email": "tariq@eduflow.ae",
+      "title": "Head of Business Development",
+      "company": "EduFlow",
+      "company_size": "11-50",
+      "country": "UAE",
+      "linkedin_url": "https://linkedin.com/in/tariq-alfahim",
+      "recent_news": "EduFlow signed a contract with 3 Dubai government schools in April 2026.",
+      "job_postings": ["B2B Sales Executive — EdTech"],
+      "pain_points": [
+        "Breaking into private school sector after government wins",
+        "Long procurement cycles in educational institutions",
+        "Demonstrating ROI to non-technical school administrators"
+      ],
+      "personalisation_hook": "Saw the Dubai government school contract announcement — those wins are great for credibility but private schools have a completely different buying process.",
+      "enriched_at": "2026-05-20T07:14:28Z"
+    },
+    {
+      "id": "p0000001-0000-4000-a000-000000000009",
+      "campaign_id": "c1a2b3c4-0001-4000-a000-000000000001",
+      "first_name": "Aisha",
+      "last_name": "Mohammed",
+      "email": "aisha.m@cloudbase.ae",
+      "title": "VP Sales — MENA",
+      "company": "CloudBase",
+      "company_size": "201-500",
+      "country": "UAE",
+      "linkedin_url": "https://linkedin.com/in/aisha-mohammed-sales",
+      "recent_news": "CloudBase was acquired by a US-based cloud infrastructure company in February 2026.",
+      "job_postings": ["Strategic Account Manager", "Sales Operations Analyst"],
+      "pain_points": [
+        "Integrating two sales teams post-acquisition",
+        "Retaining enterprise accounts during ownership transition",
+        "Rebuilding pipeline after acquisition disruption"
+      ],
+      "personalisation_hook": "Noticed CloudBase was acquired in February — post-acquisition is one of the trickiest times to keep the sales pipeline moving.",
+      "enriched_at": "2026-05-20T07:14:35Z"
+    },
+    {
+      "id": "p0000001-0000-4000-a000-000000000010",
+      "campaign_id": "c1a2b3c4-0001-4000-a000-000000000001",
+      "first_name": "Yousef",
+      "last_name": "Al-Khatib",
+      "email": "yousef@shiprocket-me.com",
+      "title": "Director of Sales",
+      "company": "ShipRocket ME",
+      "company_size": "51-200",
+      "country": "UAE",
+      "linkedin_url": "https://linkedin.com/in/yousef-alkhatib",
+      "recent_news": "ShipRocket ME expanded its logistics network to cover all 7 Emirates in March 2026.",
+      "job_postings": ["Enterprise Sales Manager", "Key Account Manager — Retail"],
+      "pain_points": [
+        "Converting SME trial users into paying enterprise accounts",
+        "Competing with Aramex and FedEx on enterprise deals",
+        "Building a direct sales motion alongside a marketplace model"
+      ],
+      "personalisation_hook": "Saw ShipRocket ME now covers all 7 Emirates — the next challenge is usually converting SME trial users into proper enterprise accounts.",
+      "enriched_at": "2026-05-20T07:14:42Z"
+    }
+  ],
+  "list_response": {
+    "total": 10,
+    "page": 1,
+    "limit": 20
+  }
+}

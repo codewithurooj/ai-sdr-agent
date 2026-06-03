@@ -1,0 +1,779 @@
+openapi: 3.0.3
+
+info:
+  title: AI SDR Agent API
+  description: |
+    Multi-agent system that researches prospects, writes personalized outreach
+    emails, and manages send sequences — all on free-tier services.
+
+    ## Pipeline Flow
+    POST /campaigns → triggers background agent crew (30-90s)
+    Poll GET /campaigns/{id} until status = "completed"
+    GET /campaigns/{id}/prospects → enriched prospect list
+    GET /campaigns/{id}/emails    → all generated email sequences
+
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8000
+    description: Local development
+  - url: https://ai-sdr-api.railway.app
+    description: Production (Railway)
+
+tags:
+  - name: Campaigns
+    description: Top-level container — one campaign = one search query run
+  - name: Prospects
+    description: Individual people discovered and enriched by the researcher agent
+  - name: Emails
+    description: Generated email sequences (Day 1 / 4 / 7) per prospect
+  - name: Webhooks
+    description: Inbound events from Resend (open, click, reply tracking)
+  - name: Health
+    description: Service status
+
+# ─────────────────────────────────────────────────────────────────────────────
+# PATHS
+# ─────────────────────────────────────────────────────────────────────────────
+paths:
+
+  # ── Health ─────────────────────────────────────────────────────────────────
+  /health:
+    get:
+      tags: [Health]
+      summary: Service health check
+      operationId: getHealth
+      responses:
+        "200":
+          description: Service is running
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+
+  # ── Campaigns ──────────────────────────────────────────────────────────────
+  /campaigns:
+    get:
+      tags: [Campaigns]
+      summary: List all campaigns
+      operationId: listCampaigns
+      parameters:
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: status
+          in: query
+          required: false
+          schema:
+            $ref: "#/components/schemas/CampaignStatus"
+      responses:
+        "200":
+          description: Paginated list of campaigns
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CampaignListResponse"
+
+    post:
+      tags: [Campaigns]
+      summary: Create campaign and trigger agent pipeline
+      operationId: createCampaign
+      description: |
+        Starts the full agent pipeline as a background task.
+        Returns immediately with status "pending".
+        Poll GET /campaigns/{id} to track progress.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCampaignRequest"
+            examples:
+              saas_dubai:
+                summary: SaaS companies in Dubai
+                value:
+                  name: "Dubai SaaS Outreach — May 2026"
+                  search_query: "SaaS companies in Dubai hiring sales managers"
+                  max_prospects: 10
+                  sender_name: "Ahmed Khan"
+                  sender_title: "AI Solutions Consultant"
+                  sender_company: "TechFlow Agency"
+                  value_proposition: "We help SaaS companies cut lead research time by 80% using AI"
+      responses:
+        "202":
+          description: Campaign accepted, pipeline starting
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Campaign"
+        "422":
+          $ref: "#/components/responses/ValidationError"
+
+  /campaigns/{campaign_id}:
+    get:
+      tags: [Campaigns]
+      summary: Get campaign details and pipeline status
+      operationId: getCampaign
+      description: |
+        Poll this endpoint every 3 seconds while status is
+        "pending" | "researching" | "writing" | "sequencing".
+        Stop polling when status is "completed" or "failed".
+      parameters:
+        - $ref: "#/components/parameters/CampaignIdParam"
+      responses:
+        "200":
+          description: Campaign object with current status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Campaign"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    delete:
+      tags: [Campaigns]
+      summary: Delete a campaign and all associated data
+      operationId: deleteCampaign
+      parameters:
+        - $ref: "#/components/parameters/CampaignIdParam"
+      responses:
+        "204":
+          description: Deleted successfully
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /campaigns/{campaign_id}/prospects:
+    get:
+      tags: [Campaigns]
+      summary: List all prospects in a campaign
+      operationId: getCampaignProspects
+      parameters:
+        - $ref: "#/components/parameters/CampaignIdParam"
+        - $ref: "#/components/parameters/PageParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: Paginated list of enriched prospects
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProspectListResponse"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /campaigns/{campaign_id}/emails:
+    get:
+      tags: [Campaigns]
+      summary: Get all email sequences for a campaign
+      operationId: getCampaignEmails
+      description: Returns all emails grouped by prospect
+      parameters:
+        - $ref: "#/components/parameters/CampaignIdParam"
+        - name: prospect_id
+          in: query
+          required: false
+          description: Filter to a single prospect
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Email sequences grouped by prospect
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CampaignEmailsResponse"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /campaigns/{campaign_id}/stats:
+    get:
+      tags: [Campaigns]
+      summary: Campaign engagement statistics
+      operationId: getCampaignStats
+      parameters:
+        - $ref: "#/components/parameters/CampaignIdParam"
+      responses:
+        "200":
+          description: Aggregate stats for the campaign
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CampaignStats"
+
+  # ── Prospects ──────────────────────────────────────────────────────────────
+  /prospects/{prospect_id}:
+    get:
+      tags: [Prospects]
+      summary: Get a single prospect with full research data
+      operationId: getProspect
+      parameters:
+        - $ref: "#/components/parameters/ProspectIdParam"
+      responses:
+        "200":
+          description: Prospect with enrichment data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Prospect"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  # ── Emails ─────────────────────────────────────────────────────────────────
+  /emails/{email_id}:
+    get:
+      tags: [Emails]
+      summary: Get a single email
+      operationId: getEmail
+      parameters:
+        - $ref: "#/components/parameters/EmailIdParam"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Email"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    patch:
+      tags: [Emails]
+      summary: Edit email subject or body before sending
+      operationId: updateEmail
+      parameters:
+        - $ref: "#/components/parameters/EmailIdParam"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateEmailRequest"
+      responses:
+        "200":
+          description: Updated email
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Email"
+        "400":
+          description: Cannot edit an already-sent email
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /emails/{email_id}/send:
+    post:
+      tags: [Emails]
+      summary: Send an email immediately (override schedule)
+      operationId: sendEmail
+      parameters:
+        - $ref: "#/components/parameters/EmailIdParam"
+      responses:
+        "200":
+          description: Email sent, status updated to "sent"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Email"
+        "400":
+          description: Email already sent or prospect unsubscribed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /emails/{email_id}/approve:
+    post:
+      tags: [Emails]
+      summary: Approve email to be sent on its scheduled date
+      operationId: approveEmail
+      description: Moves status from "draft" to "scheduled"
+      parameters:
+        - $ref: "#/components/parameters/EmailIdParam"
+      responses:
+        "200":
+          description: Email approved and scheduled
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Email"
+
+  /emails/{email_id}/discard:
+    post:
+      tags: [Emails]
+      summary: Discard an email (will not be sent)
+      operationId: discardEmail
+      parameters:
+        - $ref: "#/components/parameters/EmailIdParam"
+      responses:
+        "200":
+          description: Email discarded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Email"
+
+  # ── Webhooks ───────────────────────────────────────────────────────────────
+  /webhooks/resend:
+    post:
+      tags: [Webhooks]
+      summary: Receive Resend email event webhooks
+      operationId: resendWebhook
+      description: |
+        Configure this URL in your Resend dashboard under Webhooks.
+        Events handled: email.sent, email.opened, email.clicked,
+        email.bounced, email.complained.
+        Reply detection is done separately via Gmail API polling.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResendWebhookEvent"
+      responses:
+        "200":
+          description: Event processed
+        "400":
+          description: Invalid webhook payload
+
+# ─────────────────────────────────────────────────────────────────────────────
+# COMPONENTS
+# ─────────────────────────────────────────────────────────────────────────────
+components:
+
+  # ── Parameters ─────────────────────────────────────────────────────────────
+  parameters:
+    CampaignIdParam:
+      name: campaign_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+
+    ProspectIdParam:
+      name: prospect_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+
+    EmailIdParam:
+      name: email_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+
+    PageParam:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+
+    LimitParam:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 100
+
+  # ── Responses ──────────────────────────────────────────────────────────────
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+          example:
+            detail: "Campaign not found"
+
+    ValidationError:
+      description: Request validation failed
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+
+  # ── Schemas ────────────────────────────────────────────────────────────────
+  schemas:
+
+    # ── Enums ─────────────────────────────────────────────────────────────
+    CampaignStatus:
+      type: string
+      enum:
+        - pending       # just created, pipeline not started yet
+        - researching   # Researcher agent running (Apollo + Tavily)
+        - writing       # Writer agent generating emails
+        - sequencing    # Sequencer agent scheduling sends
+        - completed     # All done
+        - failed        # Pipeline error — check error field
+      description: Current stage of the agent pipeline
+
+    EmailStatus:
+      type: string
+      enum:
+        - draft         # Generated, awaiting human review
+        - scheduled     # Approved, will send on scheduled_at
+        - sent          # Delivered to Resend
+        - opened        # Prospect opened the email
+        - clicked       # Prospect clicked a link
+        - replied       # Prospect replied (detected via Gmail)
+        - bounced       # Hard/soft bounce
+        - discarded     # Manually discarded, will not send
+      description: Lifecycle status of a single email
+
+    # ── Campaign ──────────────────────────────────────────────────────────
+    CreateCampaignRequest:
+      type: object
+      required:
+        - name
+        - search_query
+        - sender_name
+        - sender_title
+        - sender_company
+        - value_proposition
+      properties:
+        name:
+          type: string
+          maxLength: 120
+          example: "Dubai SaaS Outreach — May 2026"
+        search_query:
+          type: string
+          maxLength: 300
+          description: Natural language query passed to Researcher agent
+          example: "SaaS companies in Dubai hiring sales managers"
+        max_prospects:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 50
+          description: Max prospects to research (Apollo free = 50 credits/month)
+        sender_name:
+          type: string
+          example: "Ahmed Khan"
+        sender_title:
+          type: string
+          example: "AI Solutions Consultant"
+        sender_company:
+          type: string
+          example: "TechFlow Agency"
+        value_proposition:
+          type: string
+          maxLength: 500
+          description: Passed to Writer agent so emails stay on-message
+          example: "We help SaaS companies cut lead research time by 80% using AI"
+        email_tone:
+          type: string
+          enum: [professional, casual, direct]
+          default: professional
+
+    Campaign:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        search_query:
+          type: string
+        status:
+          $ref: "#/components/schemas/CampaignStatus"
+        progress_message:
+          type: string
+          nullable: true
+          description: Human-readable status update for the UI progress bar
+          example: "Researching 7 of 10 prospects..."
+        max_prospects:
+          type: integer
+        prospect_count:
+          type: integer
+          description: How many prospects found so far
+        email_count:
+          type: integer
+          description: How many emails generated so far
+        sender_name:
+          type: string
+        sender_title:
+          type: string
+        sender_company:
+          type: string
+        value_proposition:
+          type: string
+        email_tone:
+          type: string
+        error:
+          type: string
+          nullable: true
+          description: Set only when status = "failed"
+        created_at:
+          type: string
+          format: date-time
+        completed_at:
+          type: string
+          format: date-time
+          nullable: true
+
+    CampaignListResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Campaign"
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+
+    CampaignStats:
+      type: object
+      properties:
+        campaign_id:
+          type: string
+          format: uuid
+        total_prospects:
+          type: integer
+        total_emails:
+          type: integer
+        emails_sent:
+          type: integer
+        emails_opened:
+          type: integer
+        emails_replied:
+          type: integer
+        emails_bounced:
+          type: integer
+        open_rate:
+          type: number
+          format: float
+          description: Percentage (0–100)
+        reply_rate:
+          type: number
+          format: float
+
+    # ── Prospect ──────────────────────────────────────────────────────────
+    Prospect:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        campaign_id:
+          type: string
+          format: uuid
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+          format: email
+        title:
+          type: string
+          example: "VP of Sales"
+        company:
+          type: string
+        company_size:
+          type: string
+          nullable: true
+          example: "51-200"
+        country:
+          type: string
+        linkedin_url:
+          type: string
+          nullable: true
+        # Enrichment from Tavily research
+        recent_news:
+          type: string
+          nullable: true
+          description: Latest news about the prospect's company (used by Writer)
+        job_postings:
+          type: array
+          items:
+            type: string
+          description: Recent open roles at the company (buying signals)
+        pain_points:
+          type: array
+          items:
+            type: string
+          description: Identified pain points extracted by Researcher agent
+        personalisation_hook:
+          type: string
+          nullable: true
+          description: One-line hook the Writer uses to open the email
+          example: "Saw that you're scaling your sales team after the Series B"
+        enriched_at:
+          type: string
+          format: date-time
+
+    ProspectListResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Prospect"
+        total:
+          type: integer
+        page:
+          type: integer
+        limit:
+          type: integer
+
+    # ── Email ─────────────────────────────────────────────────────────────
+    Email:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        campaign_id:
+          type: string
+          format: uuid
+        prospect_id:
+          type: string
+          format: uuid
+        prospect_email:
+          type: string
+          format: email
+        prospect_name:
+          type: string
+        sequence_day:
+          type: integer
+          enum: [1, 4, 7]
+          description: Which email in the sequence (Day 1 = first touch)
+        subject:
+          type: string
+        body:
+          type: string
+          description: Plain-text email body
+        status:
+          $ref: "#/components/schemas/EmailStatus"
+        resend_email_id:
+          type: string
+          nullable: true
+          description: ID returned by Resend after send
+        scheduled_at:
+          type: string
+          format: date-time
+          nullable: true
+        sent_at:
+          type: string
+          format: date-time
+          nullable: true
+        opened_at:
+          type: string
+          format: date-time
+          nullable: true
+        replied_at:
+          type: string
+          format: date-time
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+
+    UpdateEmailRequest:
+      type: object
+      properties:
+        subject:
+          type: string
+        body:
+          type: string
+
+    CampaignEmailsResponse:
+      type: object
+      properties:
+        campaign_id:
+          type: string
+          format: uuid
+        grouped_by_prospect:
+          type: array
+          items:
+            type: object
+            properties:
+              prospect:
+                $ref: "#/components/schemas/Prospect"
+              emails:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Email"
+                description: Always ordered Day 1 → Day 4 → Day 7
+
+    # ── Webhook ───────────────────────────────────────────────────────────
+    ResendWebhookEvent:
+      type: object
+      required: [type, data]
+      properties:
+        type:
+          type: string
+          enum:
+            - email.sent
+            - email.opened
+            - email.clicked
+            - email.bounced
+            - email.complained
+        created_at:
+          type: string
+          format: date-time
+        data:
+          type: object
+          properties:
+            email_id:
+              type: string
+              description: Resend's internal email ID
+            from:
+              type: string
+            to:
+              type: array
+              items:
+                type: string
+            subject:
+              type: string
+
+    # ── Shared ────────────────────────────────────────────────────────────
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [ok, degraded]
+        version:
+          type: string
+        services:
+          type: object
+          properties:
+            database:
+              type: string
+              enum: [ok, error]
+            groq:
+              type: string
+              enum: [ok, error, unchecked]
+            apollo:
+              type: string
+              enum: [ok, error, unchecked]
+            tavily:
+              type: string
+              enum: [ok, error, unchecked]
+            resend:
+              type: string
+              enum: [ok, error, unchecked]
+
+    ErrorResponse:
+      type: object
+      properties:
+        detail:
+          type: string

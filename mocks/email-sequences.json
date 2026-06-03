@@ -1,0 +1,249 @@
+{
+  "_comment": "Emails for campaign c1a2b3c4-0001. Covers all EmailStatus values for frontend testing.",
+
+  "emails": [
+
+    {
+      "id": "e0000001-0000-4000-a000-000000000001",
+      "campaign_id": "c1a2b3c4-0001-4000-a000-000000000001",
+      "prospect_id": "p0000001-0000-4000-a000-000000000001",
+      "prospect_email": "sara.almansouri@growthsaas.ae",
+      "prospect_name": "Sara Al-Mansouri",
+      "sequence_day": 1,
+      "subject": "GrowthSaaS's Sales Ops hire caught my eye",
+      "body": "Sara,\n\nNoticed GrowthSaaS is hiring a Sales Ops Manager — usually a sign the team is hitting process limits at scale. Congrats on the growth.\n\nWe work with SaaS teams in the region to cut prospect research time by 80% using AI, so reps spend more time selling and less time on spreadsheets.\n\nWe helped a similar SaaS in Riyadh generate 3x more qualified meetings without adding a single SDR.\n\nWorth a 15-minute call to see if it's relevant for GrowthSaaS?\n\nAhmed\nTechFlow Agency",
+      "status": "opened",
+      "resend_email_id": "re_abc123def456",
+      "scheduled_at": "2026-05-20T05:00:00Z",
+      "sent_at": "2026-05-20T05:00:12Z",
+      "opened_at": "2026-05-20T07:34:00Z",
+      "replied_at": null,
+      "created_at": "2026-05-20T07:14:45Z"
+    },
+    {
+      "id": "e0000001-0000-4000-a000-000000000002",
+      "campaign_id": "c1a2b3c4-0001-4000-a000-000000000001",
+      "prospect_id": "p0000001-0000-4000-a000-000000000001",
+      "prospect_email": "sara.almansouri@growthsaas.ae",
+      "prospect_name": "Sara Al-Mansouri",
+      "sequence_day": 4,
+      "subject": "Re: GrowthSaaS's Sales Ops hire caught my eye",
+      "body": "Sara,\n\nJust following up on my last note.\n\nOne thing I've seen work well for SaaS teams your size: using an AI researcher to pre-qualify every prospect before it touches an SDR. Reps only call people who already match the ICP — cuts wasted call time by half.\n\nHappy to share the exact workflow we use if that's useful.\n\nAhmed",
+      "status": "scheduled",
+      "resend_email_id": null,
+      "scheduled_at": "2026-05-23T05:00:00Z",
+      "sent_at": null,
+      "opened_at": null,
+      "replied_at": null,
+      "created_at": "2026-05-20T07:14:45Z"
+    },
+    {
+      "id": "e0000001-0000-4000-a000-000000000003",
+      "campaign_id": "c1a2b3c4-0001-4000-a000-000000000001",
+      "prospect_id": "p0000001-0000-4000-a000-000000000001",
+      "prospect_email": "sara.almansouri@growthsaas.ae",
+      "prospect_name": "Sara Al-Mansouri",
+      "sequence_day": 7,
+      "subject": "Closing the loop",
+      "body": "Sara,\n\nI know you're heads down — totally get it.\n\nIf the timing isn't right, happy to reconnect in Q3. And if this genuinely isn't relevant, just say the word and I'll stop reaching out.\n\nEither way, best of luck with the Sales Ops search.\n\nAhmed",
+      "status": "draft",
+      "resend_email_id": null,
+      "scheduled_at": "2026-05-26T05:00:00Z",
+      "sent_at": null,
+      "opened_at": null,
+      "replied_at": null,
+      "created_at": "2026-05-20T07:14:45Z"
+    },
+
+    {
+      "id": "e0000001-0000-4000-a000-000000000004",
+      "campaign_id": "c1a2b3c4-0001-4000-a000-000000000001",
+      "prospect_id": "p0000001-0000-4000-a000-000000000002",
+      "prospect_email": "james.park@loopify.io",
+      "prospect_name": "James Park",
+      "sequence_day": 1,
+      "subject": "Loopify's KSA expansion — outbound gets harder before it gets easier",
+      "body": "James,\n\nNoticed Loopify just expanded into Saudi Arabia — exciting move. New markets almost always mean the same playbook stops working and outbound gets painful before it clicks.\n\nWe help SaaS CROs build a localised outreach engine for new markets — right contacts, right messaging, without burning 3 months of SDR time figuring it out manually.\n\nOpen to a quick call this week?\n\nAhmed\nTechFlow Agency",
+      "status": "replied",
+      "resend_email_id": "re_xyz789ghi012",
+      "scheduled_at": "2026-05-20T05:00:00Z",
+      "sent_at": "2026-05-20T05:00:15Z",
+      "opened_at": "2026-05-20T09:12:00Z",
+      "replied_at": "2026-05-20T10:45:00Z",
+      "created_at": "2026-05-20T07:14:46Z"
+    },
+    {
+      "id": "e0000001-0000-4000-a000-000000000005",
+      "campaign_id": "c1a2b3c4-0001-4000-a000-000000000001",
+      "prospect_id": "p0000001-0000-4000-a000-000000000002",
+      "prospect_email": "james.park@loopify.io",
+      "prospect_name": "James Park",
+      "sequence_day": 4,
+      "subject": "Re: Loopify's KSA expansion",
+      "body": "James,\n\nQuick follow-up on my last note.\n\nOne thing worth knowing: most SaaS teams entering KSA underestimate how different the buyer persona is from UAE — different platforms, different decision timelines, different seniority levels that matter. Our AI researcher flags these differences before the first outreach goes out.\n\nHappy to share a short example if useful.\n\nAhmed",
+      "status": "discarded",
+      "resend_email_id": null,
+      "scheduled_at": "2026-05-23T05:00:00Z",
+      "sent_at": null,
+      "opened_at": null,
+      "replied_at": null,
+      "created_at": "2026-05-20T07:14:46Z"
+    },
+    {
+      "id": "e0000001-0000-4000-a000-000000000006",
+      "campaign_id": "c1a2b3c4-0001-4000-a000-000000000001",
+      "prospect_id": "p0000001-0000-4000-a000-000000000002",
+      "prospect_email": "james.park@loopify.io",
+      "prospect_name": "James Park",
+      "sequence_day": 7,
+      "subject": "Closing the loop — Loopify",
+      "body": "James,\n\nI'll keep this short — if the KSA outbound challenge isn't a priority right now, completely understand.\n\nIf it becomes one later, you know where to find me.\n\nGood luck with the expansion.\n\nAhmed",
+      "status": "discarded",
+      "resend_email_id": null,
+      "scheduled_at": "2026-05-26T05:00:00Z",
+      "sent_at": null,
+      "opened_at": null,
+      "replied_at": null,
+      "created_at": "2026-05-20T07:14:46Z"
+    },
+
+    {
+      "id": "e0000001-0000-4000-a000-000000000007",
+      "campaign_id": "c1a2b3c4-0001-4000-a000-000000000001",
+      "prospect_id": "p0000001-0000-4000-a000-000000000003",
+      "prospect_email": "fatima@nexuscrm.ae",
+      "prospect_name": "Fatima Al-Rashid",
+      "sequence_day": 1,
+      "subject": "Forbes feature → the right pipeline to follow it up",
+      "body": "Fatima,\n\nCongrats on the Forbes Middle East recognition — that kind of visibility is hard-earned. The challenge is turning that brand moment into the right enterprise pipeline, not just inbound noise.\n\nWe help growing CRM companies in the region run targeted outbound to their exact ICP — so the momentum from a press hit actually converts.\n\nWould it make sense to talk?\n\nAhmed\nTechFlow Agency",
+      "status": "sent",
+      "resend_email_id": "re_jkl345mno678",
+      "scheduled_at": "2026-05-20T05:00:00Z",
+      "sent_at": "2026-05-20T05:00:18Z",
+      "opened_at": null,
+      "replied_at": null,
+      "created_at": "2026-05-20T07:14:47Z"
+    },
+    {
+      "id": "e0000001-0000-4000-a000-000000000008",
+      "campaign_id": "c1a2b3c4-0001-4000-a000-000000000001",
+      "prospect_id": "p0000001-0000-4000-a000-000000000003",
+      "prospect_email": "fatima@nexuscrm.ae",
+      "prospect_name": "Fatima Al-Rashid",
+      "sequence_day": 4,
+      "subject": "Re: Forbes feature → the right pipeline",
+      "body": "Fatima,\n\nFollowing up on my last note.\n\nOne thing that's worked well for smaller CRM vendors competing against Salesforce: hyper-specific outreach to verticals where the enterprise giants are a bad fit — healthcare, logistics, government. Easier wins, less price competition.\n\nHappy to share how we've helped teams find those pockets.\n\nAhmed",
+      "status": "draft",
+      "resend_email_id": null,
+      "scheduled_at": "2026-05-23T05:00:00Z",
+      "sent_at": null,
+      "opened_at": null,
+      "replied_at": null,
+      "created_at": "2026-05-20T07:14:47Z"
+    },
+    {
+      "id": "e0000001-0000-4000-a000-000000000009",
+      "campaign_id": "c1a2b3c4-0001-4000-a000-000000000001",
+      "prospect_id": "p0000001-0000-4000-a000-000000000003",
+      "prospect_email": "fatima@nexuscrm.ae",
+      "prospect_name": "Fatima Al-Rashid",
+      "sequence_day": 7,
+      "subject": "Last note — NexusCRM",
+      "body": "Fatima,\n\nLast one from me — I promise.\n\nIf enterprise outbound isn't a priority right now, no worries at all. If it becomes one in Q3 or Q4, feel free to reach out directly.\n\nBest of luck with NexusCRM.\n\nAhmed",
+      "status": "draft",
+      "resend_email_id": null,
+      "scheduled_at": "2026-05-26T05:00:00Z",
+      "sent_at": null,
+      "opened_at": null,
+      "replied_at": null,
+      "created_at": "2026-05-20T07:14:47Z"
+    },
+
+    {
+      "id": "e0000001-0000-4000-a000-000000000010",
+      "campaign_id": "c1a2b3c4-0001-4000-a000-000000000001",
+      "prospect_id": "p0000001-0000-4000-a000-000000000004",
+      "prospect_email": "omar.hassan@stackhive.io",
+      "prospect_name": "Omar Hassan",
+      "sequence_day": 1,
+      "subject": "StackHive's Series A → scaling the sales team fast",
+      "body": "Omar,\n\nSaw StackHive closed a $12M Series A with Gulf Capital — congrats. Scaling an enterprise sales team post-funding is one of the most chaotic periods in any company.\n\nWe help Series A SaaS companies build a consistent outbound engine fast — so the new reps hit quota in month 2 instead of month 5.\n\nWorth 15 minutes to see if it fits what you're building?\n\nAhmed\nTechFlow Agency",
+      "status": "bounced",
+      "resend_email_id": "re_pqr901stu234",
+      "scheduled_at": "2026-05-20T05:00:00Z",
+      "sent_at": "2026-05-20T05:00:20Z",
+      "opened_at": null,
+      "replied_at": null,
+      "created_at": "2026-05-20T07:14:48Z"
+    },
+    {
+      "id": "e0000001-0000-4000-a000-000000000011",
+      "campaign_id": "c1a2b3c4-0001-4000-a000-000000000001",
+      "prospect_id": "p0000001-0000-4000-a000-000000000004",
+      "prospect_email": "omar.hassan@stackhive.io",
+      "prospect_name": "Omar Hassan",
+      "sequence_day": 4,
+      "subject": "Re: StackHive's Series A",
+      "body": "Omar,\n\nFollowing up — noticed the Day 1 email may not have landed.\n\nIf there's a better email to reach you at, happy to resend. Otherwise, the offer stands: a quick call to show you how we help post-Series A sales teams ramp faster.\n\nAhmed",
+      "status": "draft",
+      "resend_email_id": null,
+      "scheduled_at": "2026-05-23T05:00:00Z",
+      "sent_at": null,
+      "opened_at": null,
+      "replied_at": null,
+      "created_at": "2026-05-20T07:14:48Z"
+    },
+    {
+      "id": "e0000001-0000-4000-a000-000000000012",
+      "campaign_id": "c1a2b3c4-0001-4000-a000-000000000001",
+      "prospect_id": "p0000001-0000-4000-a000-000000000004",
+      "prospect_email": "omar.hassan@stackhive.io",
+      "prospect_name": "Omar Hassan",
+      "sequence_day": 7,
+      "subject": "Closing the loop — StackHive",
+      "body": "Omar,\n\nI'll wrap up here. If you're ever looking to build a faster outbound engine for the enterprise team, happy to reconnect.\n\nGood luck with the Series A growth phase.\n\nAhmed",
+      "status": "draft",
+      "resend_email_id": null,
+      "scheduled_at": "2026-05-26T05:00:00Z",
+      "sent_at": null,
+      "opened_at": null,
+      "replied_at": null,
+      "created_at": "2026-05-20T07:14:48Z"
+    }
+  ],
+
+  "grouped_by_prospect": [
+    {
+      "prospect_id": "p0000001-0000-4000-a000-000000000001",
+      "email_ids": [
+        "e0000001-0000-4000-a000-000000000001",
+        "e0000001-0000-4000-a000-000000000002",
+        "e0000001-0000-4000-a000-000000000003"
+      ]
+    },
+    {
+      "prospect_id": "p0000001-0000-4000-a000-000000000002",
+      "email_ids": [
+        "e0000001-0000-4000-a000-000000000004",
+        "e0000001-0000-4000-a000-000000000005",
+        "e0000001-0000-4000-a000-000000000006"
+      ]
+    },
+    {
+      "prospect_id": "p0000001-0000-4000-a000-000000000003",
+      "email_ids": [
+        "e0000001-0000-4000-a000-000000000007",
+        "e0000001-0000-4000-a000-000000000008",
+        "e0000001-0000-4000-a000-000000000009"
+      ]
+    },
+    {
+      "prospect_id": "p0000001-0000-4000-a000-000000000004",
+      "email_ids": [
+        "e0000001-0000-4000-a000-000000000010",
+        "e0000001-0000-4000-a000-000000000011",
+        "e0000001-0000-4000-a000-000000000012"
+      ]
+    }
+  ]
+}
